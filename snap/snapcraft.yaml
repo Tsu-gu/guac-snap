@@ -1,0 +1,52 @@
+name: guac-tsugu
+base: core24
+version: '0.0.2'
+summary: Free video downloader trusted by millions
+description: |
+  Main functionality of our applications is free and will always stay free. No watermarks, no registration, no payments. Premium features are available for advanced use. 
+grade: stable
+confinement: strict
+    
+platforms:
+  amd64:
+
+layout:
+  /usr/share/alsa:
+    bind: $SNAP/usr/share/alsa
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib
+    
+apps:
+  guac-tsugu:
+    command: usr/bin/guac
+    extensions: [gnome]
+    environment: 
+      LD_LIBRARY_PATH: $SNAP/usr/lib/guac-tsugu:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH
+      HOME: "$SNAP_USER_DATA"
+    plugs:
+      - home
+      - audio-playback
+      - removable-media
+      - unity7
+      - joystick
+      - alsa
+
+parts:
+  guac-tsugu:
+    source: .
+    plugin: dump
+    override-build: |
+      mkdir -p "$SNAPCRAFT_PART_INSTALL/usr/bin"
+      URL="https://github.com/aabalke/guac/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/guac-linux-amd64"
+      wget -q -O "$SNAPCRAFT_PART_INSTALL/usr/bin/guac" "$URL"
+      chmod +x "$SNAPCRAFT_PART_INSTALL/usr/bin/guac"
+      craftctl default
+    build-packages:
+      - wget
+    stage-packages:
+      - libproxy1v5
+      - libasound2
+      - liboss4-salsa2
+      - alsa-base
+      - alsa-topology-conf
+      - alsa-ucm-conf

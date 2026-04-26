@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Guac
+Exec=guac-tsugu
+Icon=${SNAP}/meta/gui/guac-tsugu.png
+Comment=GBA, GB, DS emulator
+Terminal=false
+Type=Application
+MimeType=x-content/unix-software;
