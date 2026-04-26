@@ -1,9 +1,9 @@
 name: guac-tsugu
 base: core24
 version: '0.0.2'
-summary: Free video downloader trusted by millions
+summary: GBA, GBC and DS emulator written in go
 description: |
-  Main functionality of our applications is free and will always stay free. No watermarks, no registration, no payments. Premium features are available for advanced use. 
+   Guac is an Emulator written in golang for Gameboy, Gameboy Color, Gameboy Advance, and Nintendo DS handheld consoles.
 grade: stable
 confinement: strict
     
