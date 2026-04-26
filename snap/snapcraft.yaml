@@ -9,9 +9,9 @@ confinement: strict
     
 platforms:
   amd64:
-  arm64:
-    build-on: [amd64, arm64]
-    build-for: [arm64]
+  # arm64:
+  #  build-on: [amd64, arm64]
+  #  build-for: [arm64]
 
 layout:
   /usr/share/alsa:
