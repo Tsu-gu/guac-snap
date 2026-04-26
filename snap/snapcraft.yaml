@@ -9,6 +9,7 @@ confinement: strict
     
 platforms:
   amd64:
+  arm64:
 
 layout:
   /usr/share/alsa:
@@ -18,7 +19,7 @@ layout:
     
 apps:
   guac-tsugu:
-    command: usr/bin/guac
+    command: bin/guac
     extensions: [gnome]
     environment: 
       LD_LIBRARY_PATH: $SNAP/usr/lib/guac-tsugu:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH
@@ -33,16 +34,21 @@ apps:
 
 parts:
   guac-tsugu:
-    source: .
-    plugin: dump
-    override-build: |
-      mkdir -p "$SNAPCRAFT_PART_INSTALL/usr/bin"
-      URL="https://github.com/aabalke/guac/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/guac-linux-amd64"
-      wget -q -O "$SNAPCRAFT_PART_INSTALL/usr/bin/guac" "$URL"
-      chmod +x "$SNAPCRAFT_PART_INSTALL/usr/bin/guac"
-      craftctl default
+    plugin: go
+    build-snaps: [go/latest/stable]
+    source: https://github.com/aabalke/guac
+    source-type: git
     build-packages:
-      - wget
+      - libx11-dev
+      - libxinerama-dev
+      - libxrandr-dev
+      - libxcursor-dev
+      - libxi-dev
+      - libxext-dev
+      - libxkbcommon-dev
+      - libxxf86vm-dev
+      - libgl1-mesa-dev
+      - pkg-config
     stage-packages:
       - libproxy1v5
       - libasound2
@@ -50,3 +56,4 @@ parts:
       - alsa-base
       - alsa-topology-conf
       - alsa-ucm-conf
+
