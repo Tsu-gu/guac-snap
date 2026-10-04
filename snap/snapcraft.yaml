@@ -1,6 +1,6 @@
 name: guac-tsugu
 base: core24
-version: '0.0.2'
+version: '0.0.4'
 summary: GBA, GBC and DS emulator written in go
 description: |
    Guac is an Emulator written in golang for Gameboy, Gameboy Color, Gameboy Advance, and Nintendo DS handheld consoles.
